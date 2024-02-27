@@ -19,7 +19,7 @@ Python: 3.10.13
 
 ### ORM(SQLAlchemy) + Migrations(Alembic)
 1. alembic 설치  
-```pip install alembic``  
+```pip install alembic```  
 
 2. alembic 초기화  
 ```alembic init migrations```  
