@@ -23,3 +23,17 @@ SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 # 데이터베이스 모델을 구성할 때 사용되는 클래스
 Base = declarative_base()
+
+# Dependency Injection(의존성 주입): 필요한 기능을 선언하여 사용할 수 있다.
+import contextlib
+
+# 제네레이터는 iterator를 생성해주는 함수 (yield 키워드 사용)
+# @contextlib.contextmanager -> with문과 사용가능
+@contextlib.contextmanager
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    # db 객체를 생성한 후에 db.close()를 수행하지 않으면 커넥션 풀에 문제 발생
+    finally:
+        db.close()

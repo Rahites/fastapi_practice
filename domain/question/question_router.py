@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 
-from database import SessionLocal
+from database import get_db
 from models import Question
 
 '''
@@ -14,7 +14,8 @@ router = APIRouter(
 
 @router.get("/list")
 def question_list():
-    db = SessionLocal()
-    _question_list = db.query(Question).order_by(Question.create_date.desc()).all()
-    db.close()
-    return _question_list
+    with get_db() as db:
+        # db = SessionLocal()
+        _question_list = db.query(Question).order_by(Question.create_date.desc()).all()
+        # db.close()
+        return _question_list
